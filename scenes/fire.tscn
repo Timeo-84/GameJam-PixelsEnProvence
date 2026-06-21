@@ -1,0 +1,84 @@
+[gd_scene load_steps=12 format=3 uid="uid://fire_scene_001"]
+
+[ext_resource type="Script" path="res://scripts/fire.gd" id="1_fire"]
+
+[sub_resource type="Gradient" id="Gradient_fire"]
+colors = PackedColorArray(1, 0.9, 0.2, 1, 1, 0.1, 0, 0.8)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fire"]
+gradient = SubResource("Gradient_fire")
+
+[sub_resource type="Curve" id="Curve_fire"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fire"]
+curve = SubResource("Curve_fire")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fire"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(8, 2, 1)
+angle_min = -180.0
+angle_max = 180.0
+gravity = Vector3(0, -98, 0)
+scale_min = 8.0
+scale_max = 16.0
+scale_curve = SubResource("CurveTexture_fire")
+color_ramp = SubResource("GradientTexture1D_fire")
+turbulence_enabled = true
+turbulence_noise_strength = 2.0
+turbulence_noise_scale = 4.0
+
+[sub_resource type="Gradient" id="Gradient_smoke"]
+colors = PackedColorArray(0.2, 0.2, 0.2, 0.8, 0.5, 0.5, 0.5, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_smoke"]
+gradient = SubResource("Gradient_smoke")
+
+[sub_resource type="Curve" id="Curve_smoke"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 1.5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_smoke"]
+curve = SubResource("Curve_smoke")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_smoke"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(10, 2, 1)
+gravity = Vector3(0, -50, 0)
+scale_min = 10.0
+scale_max = 20.0
+scale_curve = SubResource("CurveTexture_smoke")
+color_ramp = SubResource("GradientTexture1D_smoke")
+
+[sub_resource type="Gradient" id="Gradient_light"]
+offsets = PackedFloat32Array(0, 0.7, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.5, 0.5, 0.5, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_light"]
+gradient = SubResource("Gradient_light")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.8, 0.8)
+
+[node name="Fire" type="Node2D"]
+script = ExtResource("1_fire")
+
+[node name="SmokeParticles" type="GPUParticles2D" parent="."]
+position = Vector2(0, -5)
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_smoke")
+lifetime = 2.0
+
+[node name="FireParticles" type="GPUParticles2D" parent="."]
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_fire")
+lifetime = 0.8
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.6, 0.2, 1)
+energy = 1.2
+texture = SubResource("GradientTexture2D_light")
+texture_scale = 3.0

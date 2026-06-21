@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://dyedw5cyyjrkj"]
+
+[ext_resource type="Script" uid="uid://wuc0b8xgx3sm" path="res://scripts/npc.gd" id="1_npc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_col"]
+size = Vector2(30, 36)
+
+[sub_resource type="LabelSettings" id="LabelSettings_nh2m4"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_abqhh"]
+font_size = 20
+font_color = Color(1, 1, 0, 1)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rv78h"]
+font_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_detect"]
+radius = 60.0
+
+[node name="NPC" type="StaticBody2D" unique_id=309377999]
+collision_layer = 2
+script = ExtResource("1_npc")
+
+[node name="Sprite" type="ColorRect" parent="." unique_id=42251321]
+offset_left = -15.0
+offset_top = -28.0
+offset_right = 15.0
+offset_bottom = 8.0
+color = Color(0.4, 0.6, 0.2, 1)
+
+[node name="HeadRect" type="ColorRect" parent="." unique_id=522507050]
+offset_left = -11.0
+offset_top = -42.0
+offset_right = 11.0
+offset_bottom = -22.0
+color = Color(0.9, 0.75, 0.6, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1283115788]
+shape = SubResource("RectangleShape2D_col")
+
+[node name="Label" type="Label" parent="." unique_id=331229237]
+offset_left = -50.0
+offset_top = -65.0
+offset_right = 50.0
+offset_bottom = -48.0
+text = "NPC"
+label_settings = SubResource("LabelSettings_nh2m4")
+horizontal_alignment = 1
+
+[node name="Exclamation" type="Label" parent="." unique_id=1059316297]
+offset_left = -10.0
+offset_top = -85.0
+offset_right = 10.0
+offset_bottom = -57.0
+theme_override_font_sizes/font_size = 22
+text = "!"
+label_settings = SubResource("LabelSettings_abqhh")
+horizontal_alignment = 1
+
+[node name="HintLabel" type="Label" parent="." unique_id=849128997]
+modulate = Color(1, 1, 0.5, 1)
+offset_left = -52.0
+offset_top = -94.0
+offset_right = 58.0
+offset_bottom = -71.0
+text = "[E] Parler"
+label_settings = SubResource("LabelSettings_rv78h")
+horizontal_alignment = 1
+
+[node name="DetectArea" type="Area2D" parent="." unique_id=708672577]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectArea" unique_id=1296752043]
+shape = SubResource("CircleShape2D_detect")
+
+[connection signal="body_entered" from="DetectArea" to="." method="_on_detect_area_body_entered"]
+[connection signal="body_exited" from="DetectArea" to="." method="_on_detect_area_body_exited"]

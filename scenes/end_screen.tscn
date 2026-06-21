@@ -1,0 +1,91 @@
+[gd_scene load_steps=2 format=3 uid="uid://end_screen_scene"]
+
+[ext_resource type="Script" path="res://scripts/end_screen.gd" id="1_end"]
+
+[sub_resource type="ParticleProcessMaterial" id="star_material"]
+emission_shape = 0
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 30.0
+initial_velocity_max = 120.0
+gravity = Vector3(0, 50, 0)
+scale_min = 2.0
+scale_max = 8.0
+color = Color(1, 0.95, 0.3, 1)
+
+[node name="EndScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_end")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.1, 0.2, 0.1, 1)
+
+[node name="Stars" type="GPUParticles2D" parent="."]
+position = Vector2(640, 720)
+amount = 40
+lifetime = 3.5
+explosiveness = 0.0
+randomness = 1.0
+local_coords = false
+emitting = false
+process_material = SubResource("star_material")
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBox" type="VBoxContainer" parent="Center"]
+custom_minimum_size = Vector2(640, 0)
+theme_override_constants/separation = 18
+
+[node name="Title" type="Label" parent="Center/VBox"]
+horizontal_alignment = 1
+text = "Fin"
+theme_override_font_sizes/font_size = 42
+
+[node name="Message" type="Label" parent="Center/VBox"]
+horizontal_alignment = 1
+autowrap_mode = 3
+text = ""
+theme_override_font_sizes/font_size = 18
+
+[node name="Spacer" type="Control" parent="Center/VBox"]
+custom_minimum_size = Vector2(0, 16)
+
+[node name="ScoreLabel" type="Label" parent="Center/VBox"]
+horizontal_alignment = 1
+text = "Score final : 0 pts"
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(1, 0.88, 0.3, 1)
+
+[node name="TrashLabel" type="Label" parent="Center/VBox"]
+horizontal_alignment = 1
+text = "Déchets ramassés : 0 🗑"
+theme_override_font_sizes/font_size = 17
+
+[node name="FireLabel" type="Label" parent="Center/VBox"]
+horizontal_alignment = 1
+text = "Foyers éteints : 0 🔥"
+theme_override_font_sizes/font_size = 17
+
+[node name="Spacer2" type="Control" parent="Center/VBox"]
+custom_minimum_size = Vector2(0, 20)
+
+[node name="RetryBtn" type="Button" parent="Center/VBox"]
+custom_minimum_size = Vector2(280, 52)
+text = "🔄 Recommencer"
+theme_override_font_sizes/font_size = 20
+
+[node name="MenuBtn" type="Button" parent="Center/VBox"]
+custom_minimum_size = Vector2(280, 44)
+text = "🏠 Menu Principal"
+theme_override_font_sizes/font_size = 18

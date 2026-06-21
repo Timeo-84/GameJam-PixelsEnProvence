@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://trash_scene_001"]
+
+[ext_resource type="Script" path="res://scripts/trash.gd" id="1_trash"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trash"]
+size = Vector2(20, 20)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_trash_detect"]
+radius = 48.0
+
+[node name="Trash" type="Area2D"]
+collision_layer = 8
+collision_mask = 1
+script = ExtResource("1_trash")
+
+[node name="Sprite" type="ColorRect" parent="."]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(0.3, 0.8, 0.3, 0.9)
+
+[node name="Icon" type="Label" parent="."]
+offset_left = -12.0
+offset_top = -14.0
+offset_right = 12.0
+offset_bottom = 14.0
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "🍾"
+theme_override_font_sizes/font_size = 18
+
+[node name="Hint" type="Label" parent="."]
+offset_left = -40.0
+offset_top = -38.0
+offset_right = 40.0
+offset_bottom = -22.0
+horizontal_alignment = 1
+text = "[F] Ramasser"
+modulate = Color(1, 1, 0.5, 1)
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_trash")
+
+[node name="DetectBody" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectBody"]
+shape = SubResource("CircleShape2D_trash_detect")
+
+[connection signal="body_entered" from="DetectBody" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="DetectBody" to="." method="_on_body_exited"]
