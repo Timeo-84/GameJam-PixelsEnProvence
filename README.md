@@ -53,5 +53,5 @@ Le projet a été structuré de manière modulaire pour séparer la logique et l
 ---
 
 ## 👥 Crédits
-- **Développement & Narrative Design :** Timéo
+- **Développement & Narrative Design :** Timéo, Robert, Noah et Thibaud
 - Créé pour la Game Jam du **L.A.B** (Laboratoire d'Aix-périmentation et de Bidouille).
